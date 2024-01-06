@@ -437,7 +437,8 @@ namespace osu.Framework.Audio
             audioDevices = updatedAudioDevices;
 
             // Bass should always be providing "No sound" and "Default" device.
-            Trace.Assert(audioDevices.Count >= BASS_INTERNAL_DEVICE_COUNT, "Bass did not provide any audio devices.");
+            // HACK: Nyx *only* returns the "No sound" device
+            // Trace.Assert(audioDevices.Count >= BASS_INTERNAL_DEVICE_COUNT, "Bass did not provide any audio devices.");
 
             var oldDeviceNames = audioDeviceNames;
             var newDeviceNames = audioDeviceNames = audioDevices.Skip(BASS_INTERNAL_DEVICE_COUNT).Where(d => d.IsEnabled).Select(d => d.Name).ToImmutableList();
